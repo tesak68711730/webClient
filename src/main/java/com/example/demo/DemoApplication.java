@@ -4,6 +4,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -41,18 +42,18 @@ public class DemoApplication {
 		@PostExchange
 		Todo createTodo(@RequestBody Todo request);
 		@GetExchange("/{todoID}")
-		Todo getTodoByID(@PathVariable("todoID") Long id);
+		ResponseEntity<Todo> getTodoByID(@PathVariable("todoID") Long id);
 	}
 
 	@Bean
 	ApplicationRunner applicationRunner (TodoClient todoClient) {
 		return args -> {
 //			System.out.println(todoClient.todos());
-			Todo todo = new Todo(null, "asdasd", true, 1L);
-			Todo todo1 = null;
-			Todo response = todoClient.createTodo(todo);
-			System.out.println(todo1.id());
-//			System.out.println(todoClient.getTodoByID(response.id()));
+//			Todo todo = new Todo(null, "asdasd", true, 1L);
+//			Todo todo1 = null;
+//			Todo response = todoClient.createTodo(todo);
+//			System.out.println(todo1.id());
+			System.out.println(todoClient.getTodoByID(1L).getBody());
 		};
 	}
 }
